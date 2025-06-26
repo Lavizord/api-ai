@@ -11,6 +11,7 @@ func RegisterRoutes() *mux.Router {
 	r := mux.NewRouter()
 	r.Use(middleware.LoggingMiddleware)
 	r.Use(middleware.RecoveryMiddleware)
+	r.Use(middleware.ErrorHandlingMiddleware)
 	r.Use(middleware.CORSMiddleware())
 
 	// Public routes
