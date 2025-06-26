@@ -12,8 +12,17 @@ func RegisterRoutes() *mux.Router {
 	r.Use(middleware.LoggingMiddleware)
 	r.Use(middleware.RecoveryMiddleware)
 	r.Use(middleware.CORSMiddleware())
-	r.Use(middleware.JWTMiddleware)
-	r.HandleFunc("/upload", handlers.UploadPDF).Methods("POST")
-	r.HandleFunc("/login", handlers.Login).Methods("POST")
+
+	// Public routes
+	// /auth routes
+	auth := r.PathPrefix("/auth").Subrouter()
+	auth.HandleFunc("/login", handlers.Login).Methods("POST")
+
+	// Protected routes
+	// /api protected routes
+	protected := r.PathPrefix("/api").Subrouter()
+	protected.Use(middleware.JWTMiddleware)
+	protected.HandleFunc("/upload", handlers.UploadPDF).Methods("POST")
+
 	return r
 }

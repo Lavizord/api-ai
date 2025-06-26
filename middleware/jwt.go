@@ -9,8 +9,11 @@ import (
 )
 
 var JWTMiddlewareInstance *jwtmiddleware.JWTMiddleware
+var JwtSecret []byte
 
 func InitJWTMiddleware(secret []byte, issuer string, audience []string) error {
+	JwtSecret = secret
+
 	keyFunc := func(ctx context.Context) (interface{}, error) {
 		return secret, nil
 	}

@@ -21,5 +21,5 @@ func init() {
 
 	rawLogger, _ := cfg.Build()
 	Default = rawLogger.WithOptions(zap.AddCaller()).Sugar()
-	Default.Info("logger initialized")
+	Default.Info("Logger initialized.")
 }
