@@ -15,6 +15,7 @@ func RegisterRoutes() *mux.Router {
 
 	// Public routes
 	// /auth routes
+	r.HandleFunc("/health", handlers.HealthCheck).Methods("GET")
 	auth := r.PathPrefix("/auth").Subrouter()
 	auth.HandleFunc("/login", handlers.Login).Methods("POST")
 
