@@ -1,0 +1,17 @@
+info:
+  contact: {}
+paths:
+  /health:
+    get:
+      description: Returns 200 if the service is up
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Health check
+      tags:
+      - system
+swagger: "2.0"

@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "api-ai/docs"
 	"api-ai/internal/logger"
 	"api-ai/middleware"
 	"api-ai/routes"
