@@ -1,16 +1,73 @@
+definitions:
+  handlers.ErrorResponse:
+    properties:
+      error:
+        example: invalid credentials
+        type: string
+    type: object
+  handlers.TokenResponse:
+    properties:
+      token:
+        example: your.jwt.token
+        type: string
+    type: object
 info:
   contact: {}
 paths:
+  /api/upload:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Accepts a PDF file and an optional prompt for processing
+      parameters:
+      - description: PDF file to upload
+        in: formData
+        name: pdf
+        required: true
+        type: file
+      - description: Optional processing prompt
+        in: formData
+        name: prompt
+        type: string
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: PDF uploaded
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.ErrorResponse'
+      summary: Upload a PDF file with a prompt
+      tags:
+      - api
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Takes a username and password and returns a JWT token if valid
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.TokenResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.ErrorResponse'
+      summary: Authenticate user and return JWT token
+      tags:
+      - auth
   /health:
     get:
       description: Returns 200 if the service is up
       responses:
         "200":
           description: OK
-          schema:
-            additionalProperties:
-              type: string
-            type: object
       summary: Health check
       tags:
       - system

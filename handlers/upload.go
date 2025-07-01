@@ -9,6 +9,18 @@ import (
 	"go.uber.org/zap"
 )
 
+// UploadPDF godoc
+// @Summary      Upload a PDF file with a prompt
+// @Description  Accepts a PDF file and an optional prompt for processing
+// @Tags         api
+// @Accept       multipart/form-data
+// @Produce      plain
+// @Param        pdf     formData  file   true  "PDF file to upload"
+// @Param        prompt  formData  string false "Optional processing prompt"
+// @Success      200     {string}  string "PDF uploaded"
+// @Failure      400     {object}  ErrorResponse
+// @Router       /api/upload [post]
+//
 // TODO: This need to be reviwed when we get the documentation.
 func UploadPDF(w http.ResponseWriter, r *http.Request) {
 	// Parse form

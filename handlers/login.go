@@ -9,7 +9,16 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 )
 
-// Login method that supplies JWT token with duration and claims to be used on the api.
+// Login godoc
+// @Summary      Authenticate user and return JWT token
+// @Description  Takes a username and password and returns a JWT token if valid
+// @Tags         auth
+// @Accept       json
+// @Produce      json
+// @Param        credentials  body      LoginRequest     true  "User credentials"
+// @Success      200          {object}  TokenResponse
+// @Failure      500          {object}  ErrorResponse
+// @Router       /auth/login [post]
 //
 // TODO: validate username/password here.
 // TODO: Review claims.

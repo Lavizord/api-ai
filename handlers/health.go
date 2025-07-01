@@ -8,7 +8,7 @@ import (
 // @Summary      Health check
 // @Description  Returns 200 if the service is up
 // @Tags         system
-// @Success      200  {object}  map[string]string
+// @Success      200
 // @Router       /health [get]
 func HealthCheck(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
