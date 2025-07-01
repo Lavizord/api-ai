@@ -18,7 +18,7 @@ import (
 // @Param        pdf     formData  file   true  "PDF file to upload"
 // @Param        prompt  formData  string false "Optional processing prompt"
 // @Success      200     {string}  string "PDF uploaded"
-// @Failure      400     {object}  ErrorResponse
+// @Failure      400     {object}  models.ErrorResponse
 // @Router       /api/upload [post]
 //
 // TODO: This need to be reviwed when we get the documentation.
