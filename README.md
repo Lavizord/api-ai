@@ -58,8 +58,17 @@ Acess via: http://localhost:8080/swagger/index.html#/
 ├── secrets/             # AWS Secrets Manager logic
 ├── logger/              # For logging tools
 ├── auth/                # Authentication related code.
+├── ent/                 # EntGo schema and generated code.
 ├── pkg/                 # For internal packages
 ├── go.mod
 └── go.sum
+```
+
+## Entgo
+
+ORM, use the bellow command to generate the code from the schema:
+
+```bash
+go run entgo.io/ent/cmd/ent generate ./ent/schema
 ```
 

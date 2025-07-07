@@ -1,11 +1,20 @@
 definitions:
-  handlers.ErrorResponse:
+  models.ErrorResponse:
     properties:
       error:
         example: invalid credentials
         type: string
     type: object
-  handlers.TokenResponse:
+  models.LoginRequest:
+    properties:
+      password:
+        example: pass123
+        type: string
+      username:
+        example: user1
+        type: string
+    type: object
+  models.TokenResponse:
     properties:
       token:
         example: your.jwt.token
@@ -39,7 +48,7 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/handlers.ErrorResponse'
+            $ref: '#/definitions/models.ErrorResponse'
       summary: Upload a PDF file with a prompt
       tags:
       - api
@@ -48,17 +57,24 @@ paths:
       consumes:
       - application/json
       description: Takes a username and password and returns a JWT token if valid
+      parameters:
+      - description: User credentials
+        in: body
+        name: credentials
+        required: true
+        schema:
+          $ref: '#/definitions/models.LoginRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/handlers.TokenResponse'
+            $ref: '#/definitions/models.TokenResponse'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/handlers.ErrorResponse'
+            $ref: '#/definitions/models.ErrorResponse'
       summary: Authenticate user and return JWT token
       tags:
       - auth
@@ -71,4 +87,9 @@ paths:
       summary: Health check
       tags:
       - system
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

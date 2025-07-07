@@ -1,0 +1,24 @@
+services:
+  db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: sa
+      POSTGRES_PASSWORD: aj17a!ad)
+      POSTGRES_DB: db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api:
+    build: .
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://sa:aj17a!ad)@db:5432/db?sslmode=disable
+    ports:
+      - "8080:8080"
+
+volumes:
+  pgdata:
