@@ -44,6 +44,9 @@ swag init
 ```
 Acess via: http://localhost:8080/swagger/index.html#/
 
+The command needs to be run if there are any changes to the swagger annotation.
+
+NOTE: Currently there is an issue with swagger and the UploadPDF endpoint.
 
 ## Project Structure
 
@@ -72,3 +75,4 @@ ORM, use the bellow command to generate the code from the schema:
 go run entgo.io/ent/cmd/ent generate ./ent/schema
 ```
 
+Needs to be used when there is any schema change.
