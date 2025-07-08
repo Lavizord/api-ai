@@ -70,6 +70,11 @@ func FileURL(v string) predicate.Files {
 	return predicate.Files(sql.FieldEQ(FieldFileURL, v))
 }
 
+// FileData applies equality check predicate on the "file_data" field. It's identical to FileDataEQ.
+func FileData(v []byte) predicate.Files {
+	return predicate.Files(sql.FieldEQ(FieldFileData, v))
+}
+
 // PromptUsed applies equality check predicate on the "prompt_used" field. It's identical to PromptUsedEQ.
 func PromptUsed(v string) predicate.Files {
 	return predicate.Files(sql.FieldEQ(FieldPromptUsed, v))
@@ -288,6 +293,56 @@ func FileURLEqualFold(v string) predicate.Files {
 // FileURLContainsFold applies the ContainsFold predicate on the "file_url" field.
 func FileURLContainsFold(v string) predicate.Files {
 	return predicate.Files(sql.FieldContainsFold(FieldFileURL, v))
+}
+
+// FileDataEQ applies the EQ predicate on the "file_data" field.
+func FileDataEQ(v []byte) predicate.Files {
+	return predicate.Files(sql.FieldEQ(FieldFileData, v))
+}
+
+// FileDataNEQ applies the NEQ predicate on the "file_data" field.
+func FileDataNEQ(v []byte) predicate.Files {
+	return predicate.Files(sql.FieldNEQ(FieldFileData, v))
+}
+
+// FileDataIn applies the In predicate on the "file_data" field.
+func FileDataIn(vs ...[]byte) predicate.Files {
+	return predicate.Files(sql.FieldIn(FieldFileData, vs...))
+}
+
+// FileDataNotIn applies the NotIn predicate on the "file_data" field.
+func FileDataNotIn(vs ...[]byte) predicate.Files {
+	return predicate.Files(sql.FieldNotIn(FieldFileData, vs...))
+}
+
+// FileDataGT applies the GT predicate on the "file_data" field.
+func FileDataGT(v []byte) predicate.Files {
+	return predicate.Files(sql.FieldGT(FieldFileData, v))
+}
+
+// FileDataGTE applies the GTE predicate on the "file_data" field.
+func FileDataGTE(v []byte) predicate.Files {
+	return predicate.Files(sql.FieldGTE(FieldFileData, v))
+}
+
+// FileDataLT applies the LT predicate on the "file_data" field.
+func FileDataLT(v []byte) predicate.Files {
+	return predicate.Files(sql.FieldLT(FieldFileData, v))
+}
+
+// FileDataLTE applies the LTE predicate on the "file_data" field.
+func FileDataLTE(v []byte) predicate.Files {
+	return predicate.Files(sql.FieldLTE(FieldFileData, v))
+}
+
+// FileDataIsNil applies the IsNil predicate on the "file_data" field.
+func FileDataIsNil() predicate.Files {
+	return predicate.Files(sql.FieldIsNull(FieldFileData))
+}
+
+// FileDataNotNil applies the NotNil predicate on the "file_data" field.
+func FileDataNotNil() predicate.Files {
+	return predicate.Files(sql.FieldNotNull(FieldFileData))
 }
 
 // PromptUsedEQ applies the EQ predicate on the "prompt_used" field.

@@ -34,6 +34,27 @@ cd api-template
 go run .
 ```
 
+
+
+## Env variables
+
+The project requires a few env variable defines in a .env file that is used by docker-compose.
+If they are not defined, there will be console errors.
+Just create a .env file and add the proper credentials / configurations.
+
+Here is a list:
+
+```bash
+# Database config
+DATABASE_URL=
+
+# R2 storage credentials
+R2_ACCOUNT_ID=
+R2_ACCESS_KEY_ID=
+R2_ACCESS_KEY_SECRET=
+R2_BUCKET_NAME=
+```
+
 ### Swagger
 
 API has built in documentation and testing. 
@@ -75,4 +96,6 @@ ORM, use the bellow command to generate the code from the schema:
 go run entgo.io/ent/cmd/ent generate ./ent/schema
 ```
 
-Needs to be used when there is any schema change.
+The human writen schema files are in ./ent/schema/, the other files in ./ent/ are generated files from the command above.
+
+The command needs to be used when there is any schema change.

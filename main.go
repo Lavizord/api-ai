@@ -5,6 +5,7 @@ import (
 	_ "api-ai/docs"
 	"api-ai/ent"
 	"api-ai/internal/logger"
+	"api-ai/internal/services"
 	"api-ai/middleware"
 	"api-ai/routes"
 	"api-ai/secrets"
@@ -36,7 +37,14 @@ func main() {
 	}
 	logger.Default.Info("JWTMiddleware initialized...")
 
-	r := routes.RegisterRoutes(dbcli)
+	fh, err := services.NewFileHandler(dbcli) // Inits the file handler that will ne used in the endpoints.
+	if err != nil {
+		logger.Default.Fatalf(err.Error())
+	}
+	logger.Default.Info("FileHandler initialized...")
+
+	r := routes.RegisterRoutes(fh) // Registers routs with services provided.
+
 	logger.Default.Info("Listening on :8080")
 	log.Fatal(http.ListenAndServe(":8080", r))
 }

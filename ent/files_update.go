@@ -77,6 +77,18 @@ func (fu *FilesUpdate) ClearFileURL() *FilesUpdate {
 	return fu
 }
 
+// SetFileData sets the "file_data" field.
+func (fu *FilesUpdate) SetFileData(b []byte) *FilesUpdate {
+	fu.mutation.SetFileData(b)
+	return fu
+}
+
+// ClearFileData clears the value of the "file_data" field.
+func (fu *FilesUpdate) ClearFileData() *FilesUpdate {
+	fu.mutation.ClearFileData()
+	return fu
+}
+
 // SetPromptUsed sets the "prompt_used" field.
 func (fu *FilesUpdate) SetPromptUsed(s string) *FilesUpdate {
 	fu.mutation.SetPromptUsed(s)
@@ -208,6 +220,12 @@ func (fu *FilesUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if fu.mutation.FileURLCleared() {
 		_spec.ClearField(files.FieldFileURL, field.TypeString)
 	}
+	if value, ok := fu.mutation.FileData(); ok {
+		_spec.SetField(files.FieldFileData, field.TypeBytes, value)
+	}
+	if fu.mutation.FileDataCleared() {
+		_spec.ClearField(files.FieldFileData, field.TypeBytes)
+	}
 	if value, ok := fu.mutation.PromptUsed(); ok {
 		_spec.SetField(files.FieldPromptUsed, field.TypeString, value)
 	}
@@ -327,6 +345,18 @@ func (fuo *FilesUpdateOne) SetNillableFileURL(s *string) *FilesUpdateOne {
 // ClearFileURL clears the value of the "file_url" field.
 func (fuo *FilesUpdateOne) ClearFileURL() *FilesUpdateOne {
 	fuo.mutation.ClearFileURL()
+	return fuo
+}
+
+// SetFileData sets the "file_data" field.
+func (fuo *FilesUpdateOne) SetFileData(b []byte) *FilesUpdateOne {
+	fuo.mutation.SetFileData(b)
+	return fuo
+}
+
+// ClearFileData clears the value of the "file_data" field.
+func (fuo *FilesUpdateOne) ClearFileData() *FilesUpdateOne {
+	fuo.mutation.ClearFileData()
 	return fuo
 }
 
@@ -490,6 +520,12 @@ func (fuo *FilesUpdateOne) sqlSave(ctx context.Context) (_node *Files, err error
 	}
 	if fuo.mutation.FileURLCleared() {
 		_spec.ClearField(files.FieldFileURL, field.TypeString)
+	}
+	if value, ok := fuo.mutation.FileData(); ok {
+		_spec.SetField(files.FieldFileData, field.TypeBytes, value)
+	}
+	if fuo.mutation.FileDataCleared() {
+		_spec.ClearField(files.FieldFileData, field.TypeBytes)
 	}
 	if value, ok := fuo.mutation.PromptUsed(); ok {
 		_spec.SetField(files.FieldPromptUsed, field.TypeString, value)

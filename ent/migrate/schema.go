@@ -57,6 +57,7 @@ var (
 		{Name: "file_source", Type: field.TypeString},
 		{Name: "file_name", Type: field.TypeString},
 		{Name: "file_url", Type: field.TypeString, Nullable: true},
+		{Name: "file_data", Type: field.TypeBytes, Nullable: true},
 		{Name: "prompt_used", Type: field.TypeString},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "type", Type: field.TypeString},

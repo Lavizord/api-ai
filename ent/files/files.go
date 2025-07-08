@@ -20,6 +20,8 @@ const (
 	FieldFileName = "file_name"
 	// FieldFileURL holds the string denoting the file_url field in the database.
 	FieldFileURL = "file_url"
+	// FieldFileData holds the string denoting the file_data field in the database.
+	FieldFileData = "file_data"
 	// FieldPromptUsed holds the string denoting the prompt_used field in the database.
 	FieldPromptUsed = "prompt_used"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.
@@ -43,6 +45,7 @@ var Columns = []string{
 	FieldFileSource,
 	FieldFileName,
 	FieldFileURL,
+	FieldFileData,
 	FieldPromptUsed,
 	FieldCreatedAt,
 	FieldType,

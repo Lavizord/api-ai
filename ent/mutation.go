@@ -1605,6 +1605,7 @@ type FilesMutation struct {
 	file_source     *string
 	file_name       *string
 	file_url        *string
+	file_data       *[]byte
 	prompt_used     *string
 	created_at      *time.Time
 	_type           *string
@@ -1836,6 +1837,55 @@ func (m *FilesMutation) ResetFileURL() {
 	delete(m.clearedFields, files.FieldFileURL)
 }
 
+// SetFileData sets the "file_data" field.
+func (m *FilesMutation) SetFileData(b []byte) {
+	m.file_data = &b
+}
+
+// FileData returns the value of the "file_data" field in the mutation.
+func (m *FilesMutation) FileData() (r []byte, exists bool) {
+	v := m.file_data
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldFileData returns the old "file_data" field's value of the Files entity.
+// If the Files object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *FilesMutation) OldFileData(ctx context.Context) (v []byte, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldFileData is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldFileData requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldFileData: %w", err)
+	}
+	return oldValue.FileData, nil
+}
+
+// ClearFileData clears the value of the "file_data" field.
+func (m *FilesMutation) ClearFileData() {
+	m.file_data = nil
+	m.clearedFields[files.FieldFileData] = struct{}{}
+}
+
+// FileDataCleared returns if the "file_data" field was cleared in this mutation.
+func (m *FilesMutation) FileDataCleared() bool {
+	_, ok := m.clearedFields[files.FieldFileData]
+	return ok
+}
+
+// ResetFileData resets all changes to the "file_data" field.
+func (m *FilesMutation) ResetFileData() {
+	m.file_data = nil
+	delete(m.clearedFields, files.FieldFileData)
+}
+
 // SetPromptUsed sets the "prompt_used" field.
 func (m *FilesMutation) SetPromptUsed(s string) {
 	m.prompt_used = &s
@@ -2032,7 +2082,7 @@ func (m *FilesMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *FilesMutation) Fields() []string {
-	fields := make([]string, 0, 6)
+	fields := make([]string, 0, 7)
 	if m.file_source != nil {
 		fields = append(fields, files.FieldFileSource)
 	}
@@ -2041,6 +2091,9 @@ func (m *FilesMutation) Fields() []string {
 	}
 	if m.file_url != nil {
 		fields = append(fields, files.FieldFileURL)
+	}
+	if m.file_data != nil {
+		fields = append(fields, files.FieldFileData)
 	}
 	if m.prompt_used != nil {
 		fields = append(fields, files.FieldPromptUsed)
@@ -2065,6 +2118,8 @@ func (m *FilesMutation) Field(name string) (ent.Value, bool) {
 		return m.FileName()
 	case files.FieldFileURL:
 		return m.FileURL()
+	case files.FieldFileData:
+		return m.FileData()
 	case files.FieldPromptUsed:
 		return m.PromptUsed()
 	case files.FieldCreatedAt:
@@ -2086,6 +2141,8 @@ func (m *FilesMutation) OldField(ctx context.Context, name string) (ent.Value, e
 		return m.OldFileName(ctx)
 	case files.FieldFileURL:
 		return m.OldFileURL(ctx)
+	case files.FieldFileData:
+		return m.OldFileData(ctx)
 	case files.FieldPromptUsed:
 		return m.OldPromptUsed(ctx)
 	case files.FieldCreatedAt:
@@ -2121,6 +2178,13 @@ func (m *FilesMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetFileURL(v)
+		return nil
+	case files.FieldFileData:
+		v, ok := value.([]byte)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetFileData(v)
 		return nil
 	case files.FieldPromptUsed:
 		v, ok := value.(string)
@@ -2176,6 +2240,9 @@ func (m *FilesMutation) ClearedFields() []string {
 	if m.FieldCleared(files.FieldFileURL) {
 		fields = append(fields, files.FieldFileURL)
 	}
+	if m.FieldCleared(files.FieldFileData) {
+		fields = append(fields, files.FieldFileData)
+	}
 	return fields
 }
 
@@ -2193,6 +2260,9 @@ func (m *FilesMutation) ClearField(name string) error {
 	case files.FieldFileURL:
 		m.ClearFileURL()
 		return nil
+	case files.FieldFileData:
+		m.ClearFileData()
+		return nil
 	}
 	return fmt.Errorf("unknown Files nullable field %s", name)
 }
@@ -2209,6 +2279,9 @@ func (m *FilesMutation) ResetField(name string) error {
 		return nil
 	case files.FieldFileURL:
 		m.ResetFileURL()
+		return nil
+	case files.FieldFileData:
+		m.ResetFileData()
 		return nil
 	case files.FieldPromptUsed:
 		m.ResetPromptUsed()

@@ -23,6 +23,8 @@ type Files struct {
 	FileName string `json:"file_name,omitempty"`
 	// FileURL holds the value of the "file_url" field.
 	FileURL string `json:"file_url,omitempty"`
+	// FileData holds the value of the "file_data" field.
+	FileData []byte `json:"file_data,omitempty"`
 	// PromptUsed holds the value of the "prompt_used" field.
 	PromptUsed string `json:"prompt_used,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
@@ -58,6 +60,8 @@ func (*Files) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
+		case files.FieldFileData:
+			values[i] = new([]byte)
 		case files.FieldID:
 			values[i] = new(sql.NullInt64)
 		case files.FieldFileSource, files.FieldFileName, files.FieldFileURL, files.FieldPromptUsed, files.FieldType:
@@ -102,6 +106,12 @@ func (f *Files) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field file_url", values[i])
 			} else if value.Valid {
 				f.FileURL = value.String
+			}
+		case files.FieldFileData:
+			if value, ok := values[i].(*[]byte); !ok {
+				return fmt.Errorf("unexpected type %T for field file_data", values[i])
+			} else if value != nil {
+				f.FileData = *value
 			}
 		case files.FieldPromptUsed:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -170,6 +180,9 @@ func (f *Files) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("file_url=")
 	builder.WriteString(f.FileURL)
+	builder.WriteString(", ")
+	builder.WriteString("file_data=")
+	builder.WriteString(fmt.Sprintf("%v", f.FileData))
 	builder.WriteString(", ")
 	builder.WriteString("prompt_used=")
 	builder.WriteString(f.PromptUsed)

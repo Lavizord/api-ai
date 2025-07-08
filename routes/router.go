@@ -1,15 +1,15 @@
 package routes
 
 import (
-	"api-ai/ent"
 	"api-ai/handlers"
+	"api-ai/internal/services"
 	"api-ai/middleware"
 	"net/http"
 
 	"github.com/gorilla/mux"
 )
 
-func RegisterRoutes(client *ent.Client) *mux.Router {
+func RegisterRoutes(fh *services.FileHandler) *mux.Router {
 	r := mux.NewRouter()
 
 	r.Use(middleware.LoggingMiddleware)
@@ -35,7 +35,7 @@ func RegisterRoutes(client *ent.Client) *mux.Router {
 			w.WriteHeader(http.StatusNoContent)
 			return
 		}
-		handlers.UploadPDF(w, r, client)
+		handlers.UploadPDF(w, r, fh)
 	}).Methods("POST", "OPTIONS")
 
 	return r

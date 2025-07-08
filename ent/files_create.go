@@ -47,6 +47,12 @@ func (fc *FilesCreate) SetNillableFileURL(s *string) *FilesCreate {
 	return fc
 }
 
+// SetFileData sets the "file_data" field.
+func (fc *FilesCreate) SetFileData(b []byte) *FilesCreate {
+	fc.mutation.SetFileData(b)
+	return fc
+}
+
 // SetPromptUsed sets the "prompt_used" field.
 func (fc *FilesCreate) SetPromptUsed(s string) *FilesCreate {
 	fc.mutation.SetPromptUsed(s)
@@ -183,6 +189,10 @@ func (fc *FilesCreate) createSpec() (*Files, *sqlgraph.CreateSpec) {
 	if value, ok := fc.mutation.FileURL(); ok {
 		_spec.SetField(files.FieldFileURL, field.TypeString, value)
 		_node.FileURL = value
+	}
+	if value, ok := fc.mutation.FileData(); ok {
+		_spec.SetField(files.FieldFileData, field.TypeBytes, value)
+		_node.FileData = value
 	}
 	if value, ok := fc.mutation.PromptUsed(); ok {
 		_spec.SetField(files.FieldPromptUsed, field.TypeString, value)
