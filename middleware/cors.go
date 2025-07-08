@@ -16,7 +16,7 @@ func CORSMiddleware() func(http.Handler) http.Handler {
 
 		// Allowed HTTP methods on the resource.
 		//handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}),
-		handlers.AllowedMethods([]string{"POST"}),
+		handlers.AllowedMethods([]string{"GET", "POST", "OPTIONS"}),
 
 		handlers.AllowedHeaders([]string{"Authorization", "Content-Type"}),
 		handlers.AllowCredentials(),

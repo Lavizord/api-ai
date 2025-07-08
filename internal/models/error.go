@@ -1,6 +1,6 @@
-package handlers
+package models
 
-// TODO: This should be something global. The error response should be the same as the error middleware response.
+import "net/http"
 
 // LoginRequest represents login input
 type LoginRequest struct {
@@ -16,4 +16,15 @@ type TokenResponse struct {
 // ErrorResponse represents an error message
 type ErrorResponse struct {
 	Error string `json:"error" example:"invalid credentials"`
+}
+
+// ErrorHandlingMiddleware: formats known errors consistently
+type ErrorResponseWriter struct {
+	http.ResponseWriter
+	Status int
+}
+
+func (e *ErrorResponseWriter) WriteHeader(status int) {
+	e.Status = status
+	e.ResponseWriter.WriteHeader(status)
 }

@@ -15,9 +15,9 @@ import (
 // @Tags         auth
 // @Accept       json
 // @Produce      json
-// @Param        credentials  body      LoginRequest     true  "User credentials"
-// @Success      200          {object}  TokenResponse
-// @Failure      500          {object}  ErrorResponse
+// @Param        credentials  body      models.LoginRequest     true  "User credentials"
+// @Success      200          {object}  models.TokenResponse
+// @Failure      500          {object}  models.ErrorResponse
 // @Router       /auth/login [post]
 //
 // TODO: validate username/password here.
