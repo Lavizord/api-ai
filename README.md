@@ -11,20 +11,14 @@ In addition, the API provides a simple **health check endpoint** for uptime moni
 
 ## Features
 
-- Gorilla Mux router  
-- Middleware support (CORS, JWT, Logging, Recovery)  
-- Swagger (OpenAPI) integration  
-- AWS Secrets Manager (simple implementation)  
-- Health check and login endpoints  
+- Gorilla Mux router.
+- Middleware support (CORS, JWT, Logging, Recovery).
+- Swagger (OpenAPI) integration.
+- AWS Secrets Manager (simple implementation). 
+- Health check and login endpoints.
 - Other example endpoints. 
-
-
-## Features
-
-- Gorilla Mux router  
-- Middleware support  
-- Swagger (OpenAPI) integration  
-- AWS Secrets Manager (simple implementation)  
+- Cloudflare R2 bucket upload.
+- Entgo for ORM, using postgress (docker-compose).
 
 ## Getting Started
 
@@ -33,8 +27,6 @@ git clone https://github.com/Retromindgames/api-template.git
 cd api-template
 go run .
 ```
-
-
 
 ## Env variables
 
